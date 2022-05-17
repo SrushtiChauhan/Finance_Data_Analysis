@@ -6,6 +6,7 @@ import pandas as pd
 import datetime as dt
 import requests
 import json
+import plotly.express as px
 
 st.set_page_config(layout="wide")
 
@@ -147,6 +148,17 @@ def stock_details_fun(stock_details):
     # display the details of stock 
     st.subheader(f'{stock_details[0]} Stock Data')
     st.write(stock_details[1])
+
+    # Compare using plotly
+    # continue loading the data with your excel file, I was a bit too lazy to build an Excel file :)
+    df = pd.DataFrame(
+        [["Product A", 5.6, 7.8, 5], ["Product B", 5.8, 7.2, 4.9]],
+        columns=["Product", "Comfort", "Sound", "Calls"]
+    )
+
+    fig = px.bar(df, x="Product", y=["Comfort", "Sound", "Calls"], barmode='group', height=400)
+    # st.dataframe(df) # if need to display dataframe
+    st.plotly_chart(fig)
 
     # line chart for open
     st.subheader(f'{stock_details[0]} Open stock price data')
